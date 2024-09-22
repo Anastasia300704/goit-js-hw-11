@@ -15,7 +15,7 @@ async function onFormSubmit(event) {
   }
 
   clearGallery();
-  loader.classList.remove('hidden');  // Показати індикатор завантаження
+  loader.classList.remove('hidden'); 
 
   try {
     const data = await fetchImages(query, page);
@@ -29,12 +29,11 @@ async function onFormSubmit(event) {
   } catch (error) {
     showError('Something went wrong, please try again later.');
   } finally {
-    loader.classList.add('hidden');  // Приховати індикатор завантаження
+    loader.classList.add('hidden');  
   }
 }
 
 import { fetchImages } from './pixabay-api';
 import { renderImages, clearGallery, showError, showNotification } from './render-functions';
-import "css-loader";
 
 
