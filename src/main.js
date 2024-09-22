@@ -33,6 +33,7 @@ async function onFormSubmit(event) {
   }
 }
 
-import { renderImages, clearGallery, showError, showNotification } from './render-functions';
+
+
 
 
