@@ -33,7 +33,6 @@ async function onFormSubmit(event) {
   }
 }
 
-import { fetchImages } from './pixabay-api';
 import { renderImages, clearGallery, showError, showNotification } from './render-functions';
 
 
