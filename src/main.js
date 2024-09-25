@@ -1,37 +1,70 @@
-const form = document.querySelector('#search-form');
-const input = document.querySelector('input[name="searchQuery"]');
+const searchForm = document.querySelector('.search-form');
+const loadMoreButton = document.querySelector('.load-more');
 const loader = document.querySelector('.loader');
-let page = 1;
+const galleryContainer = document.querySelector('.gallery');
 
-form.addEventListener('submit', onFormSubmit);
+let searchQuery = '';
+let currentPage = 1;
 
-async function onFormSubmit(event) {
+searchForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-  const query = input.value.trim();
+  searchQuery = event.currentTarget.elements.query.value.trim();
 
-  if (!query) {
-    showNotification('Please enter a search query');
+  if (!searchQuery) {
+    showError('Search query cannot be empty.');
     return;
   }
 
+  currentPage = 1;
   clearGallery();
-  loader.classList.remove('hidden'); 
+  fetchAndRenderImages();
+});
 
+loadMoreButton.addEventListener('click', () => {
+  currentPage += 1;
+  fetchAndRenderImages();
+});
+
+async function fetchAndRenderImages() {
   try {
-    const data = await fetchImages(query, page);
+    showLoader();
+    const data = await fetchImages(searchQuery, currentPage);
+    hideLoader();
 
-    if (data.hits.length === 0) {
+    if (data.hits.length === 0 && currentPage === 1) {
       showNotification('Sorry, there are no images matching your search query. Please try again!');
       return;
     }
 
     renderImages(data.hits);
+
+  
+    if (data.totalHits > currentPage * data.hits.length) {
+      loadMoreButton.style.display = 'block';
+    } else {
+      loadMoreButton.style.display = 'none';
+    }
   } catch (error) {
-    showError('Something went wrong, please try again later.');
-  } finally {
-    loader.classList.add('hidden');  
+    hideLoader();
+    showError('Failed to load images. Please try again.');
   }
 }
+
+function showLoader() {
+  loader.style.display = 'block';
+}
+
+function hideLoader() {
+  loader.style.display = 'none';
+}
+
+import { fetchImages } from './pixabay-api';
+import { renderImages, clearGallery, showNotification, showError } from './render-functions';
+import 'css-loader'; 
+
+
+
+
 
 
 
