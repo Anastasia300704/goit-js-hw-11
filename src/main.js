@@ -58,8 +58,8 @@ function hideLoader() {
   loader.style.display = 'none';
 }
 
-import { fetchImages } from './pixabay-api';
-import { renderImages, clearGallery, showNotification, showError } from './render-functions';
+import { fetchImages } from './pixabay-api.js';
+import { renderImages, clearGallery, showNotification, showError } from './render-functions.js';
 import 'css-loader'; 
 
 
