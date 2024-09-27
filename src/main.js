@@ -1,3 +1,8 @@
+import { fetchImages } from "./js/pixabay-api.js";
+import { renderImages, clearGallery, showNotification, showError } from "./js/render-functions.js";
+import 'css-loader'; 
+
+
 const searchForm = document.querySelector('.search-form');
 const loadMoreButton = document.querySelector('.load-more');
 const loader = document.querySelector('.loader');
@@ -58,9 +63,7 @@ function hideLoader() {
   loader.style.display = 'none';
 }
 
-import { fetchImages } from "./js/pixabay-api.js";
-import { renderImages, clearGallery, showNotification, showError } from "./js/render-functions.js";
-import 'css-loader'; 
+
 
 
 
